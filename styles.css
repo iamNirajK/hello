@@ -1,0 +1,405 @@
+:root {
+  color-scheme: light dark;
+  --bg: #0f172a;
+  --panel: #111827;
+  --muted: #94a3b8;
+  --text: #f8fafc;
+  --accent: #38bdf8;
+  --accent-2: #a855f7;
+  --border: #1f2937;
+}
+
+body.theme-light {
+  --bg: #f8fafc;
+  --panel: #ffffff;
+  --muted: #475569;
+  --text: #0f172a;
+  --accent: #2563eb;
+  --accent-2: #9333ea;
+  --border: #e2e8f0;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, rgba(56, 189, 248, 0.15), transparent 50%), var(--bg);
+  color: var(--text);
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.app-header h1 {
+  margin: 0 0 0.25rem;
+}
+
+.header-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.chip {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.chip.danger {
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+.file-input input {
+  display: none;
+}
+
+.layout {
+  display: grid;
+  gap: 1.5rem;
+  padding: 1.5rem 2rem 4rem;
+}
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  #productivityPanel {
+    grid-column: 1 / -1;
+  }
+}
+
+.panel {
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  backdrop-filter: blur(12px);
+}
+
+body.theme-light .panel {
+  background: #ffffff;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tabs button {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.tabs button.active {
+  border-color: var(--accent);
+  color: var(--text);
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.calculator {
+  margin-top: 1rem;
+}
+
+.display {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 1rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.display input {
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 1.1rem;
+}
+
+#calcOutput {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.keypad {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.keypad button {
+  border: 1px solid var(--border);
+  background: rgba(148, 163, 184, 0.1);
+  padding: 0.65rem;
+  border-radius: 0.75rem;
+  color: var(--text);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.keypad button:hover {
+  transform: translateY(-2px);
+}
+
+.keypad button.primary {
+  background: var(--accent);
+  border-color: transparent;
+  color: #0f172a;
+}
+
+.keypad button.secondary {
+  background: rgba(168, 85, 247, 0.2);
+  border-color: var(--accent-2);
+}
+
+.converter {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.converter select,
+.converter input {
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+}
+
+.formula-memory,
+.history,
+.calendar-summary,
+.event-editor,
+.event-list {
+  margin-top: 1.5rem;
+}
+
+.formula-form,
+.history-actions,
+.event-form,
+.todo-input {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.5rem;
+}
+
+.formula-form input,
+.history-actions input,
+.event-form input,
+.event-form select,
+.todo-input input {
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+  padding: 0.5rem;
+  background: var(--panel);
+  color: var(--text);
+}
+
+.formula-form button,
+.history-actions button,
+.event-form button,
+.event-actions button,
+.todo-input button {
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+  background: var(--accent);
+  color: #0f172a;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.list li {
+  border: 1px solid var(--border);
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  align-items: center;
+  background: rgba(148, 163, 184, 0.05);
+}
+
+.list small {
+  color: var(--muted);
+}
+
+.hidden {
+  display: none;
+}
+
+.calendar-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.calendar-controls button {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.75rem;
+}
+
+.calendar-grid {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.calendar-cell {
+  padding: 0.5rem;
+  min-height: 90px;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: rgba(148, 163, 184, 0.05);
+}
+
+.calendar-cell.weekend {
+  border-color: rgba(248, 113, 113, 0.6);
+}
+
+.calendar-cell.selected {
+  outline: 2px solid var(--accent);
+}
+
+.calendar-cell h4 {
+  margin: 0 0 0.35rem;
+  font-size: 0.85rem;
+}
+
+.calendar-cell .holiday {
+  color: #f87171;
+  font-size: 0.7rem;
+}
+
+.event-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  color: #0f172a;
+  margin-top: 0.35rem;
+}
+
+.grid-2,
+.grid-3 {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.notes textarea {
+  width: 100%;
+  min-height: 180px;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+  padding: 0.75rem;
+  background: var(--panel);
+  color: var(--text);
+}
+
+.timer {
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  background: rgba(148, 163, 184, 0.05);
+  text-align: center;
+}
+
+.timer-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.timer-actions button {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.75rem;
+}
+
+.app-footer {
+  position: sticky;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.8);
+  border-top: 1px solid var(--border);
+  padding: 0.75rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.shortcuts kbd {
+  border: 1px solid var(--border);
+  padding: 0.15rem 0.35rem;
+  border-radius: 0.35rem;
+  background: var(--panel);
+}
+
+@media (max-width: 768px) {
+  .panel {
+    padding: 1rem;
+  }
+
+  .app-header {
+    padding: 1rem;
+  }
+
+  .layout {
+    padding: 1rem 1rem 3rem;
+  }
+}

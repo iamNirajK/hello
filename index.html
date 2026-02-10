@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1f2937" />
+  <title>Privacy Productivity Suite</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="theme-dark">
+  <header class="app-header">
+    <div>
+      <h1>Privacy Productivity Suite</h1>
+      <p>Offline-first calculator + calendar workspace.</p>
+    </div>
+    <div class="header-actions">
+      <button id="themeToggle" class="chip">Toggle Theme</button>
+      <button id="exportAll" class="chip">Export Backup</button>
+      <label class="chip file-input">
+        Import Backup
+        <input type="file" id="importAll" accept="application/json" />
+      </label>
+      <button id="resetAll" class="chip danger">Reset Data</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel" id="calculatorPanel">
+      <div class="panel-header">
+        <h2>Calculator Hub</h2>
+        <div class="tabs" id="calcTabs">
+          <button data-tab="basic" class="active">Basic</button>
+          <button data-tab="scientific">Scientific</button>
+          <button data-tab="financial">Finance</button>
+          <button data-tab="converter">Converter</button>
+        </div>
+      </div>
+
+      <div class="calculator">
+        <div class="display">
+          <input id="calcInput" placeholder="Enter expression" autocomplete="off" />
+          <div id="calcOutput">0</div>
+        </div>
+        <div class="keypad" id="basicPad"></div>
+        <div class="keypad hidden" id="scientificPad"></div>
+        <div class="keypad hidden" id="financialPad"></div>
+        <div class="converter hidden" id="converterPad"></div>
+      </div>
+
+      <div class="formula-memory">
+        <h3>Formula Memory</h3>
+        <div class="formula-form">
+          <input id="formulaName" placeholder="Formula name" />
+          <input id="formulaExpression" placeholder="Expression (e.g. P * R * T / 100)" />
+          <button id="saveFormula">Save</button>
+        </div>
+        <ul id="formulaList" class="list"></ul>
+      </div>
+
+      <div class="history">
+        <div class="history-header">
+          <h3>Calculation History</h3>
+          <div class="history-actions">
+            <input id="historySearch" placeholder="Search history" />
+            <button id="clearHistory">Clear</button>
+            <button id="exportHistory">Export</button>
+          </div>
+        </div>
+        <ul id="historyList" class="list"></ul>
+      </div>
+    </section>
+
+    <section class="panel" id="calendarPanel">
+      <div class="panel-header">
+        <h2>Calendar</h2>
+        <div class="tabs" id="calendarTabs">
+          <button data-view="month" class="active">Month</button>
+          <button data-view="week">Week</button>
+          <button data-view="day">Day</button>
+        </div>
+      </div>
+      <div class="calendar-controls">
+        <button id="prevPeriod">◀</button>
+        <div id="currentPeriod"></div>
+        <button id="nextPeriod">▶</button>
+      </div>
+      <div id="calendarGrid" class="calendar-grid"></div>
+      <div class="calendar-summary">
+        <h3>Monthly Summary</h3>
+        <div id="monthlySummary">No calculations yet.</div>
+      </div>
+
+      <div class="event-editor">
+        <h3>Add Event / Note</h3>
+        <div class="event-form">
+          <input id="eventTitle" placeholder="Event title" />
+          <input id="eventDate" type="date" />
+          <input id="eventTime" type="time" />
+          <select id="eventColor">
+            <option value="#38bdf8">Sky</option>
+            <option value="#34d399">Emerald</option>
+            <option value="#f472b6">Pink</option>
+            <option value="#facc15">Amber</option>
+          </select>
+          <select id="eventRepeat">
+            <option value="none">No Repeat</option>
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+            <option value="yearly">Yearly</option>
+          </select>
+          <button id="saveEvent">Save Event</button>
+        </div>
+        <div class="event-actions">
+          <button id="requestNotifications">Enable Reminders</button>
+          <button id="attachCalculation">Attach Last Calculation</button>
+        </div>
+      </div>
+      <div class="event-list">
+        <h3>Events & Notes</h3>
+        <ul id="eventList" class="list"></ul>
+      </div>
+    </section>
+
+    <section class="panel" id="productivityPanel">
+      <div class="panel-header">
+        <h2>Productivity</h2>
+      </div>
+      <div class="grid-2">
+        <div class="notes">
+          <h3>Notes</h3>
+          <textarea id="notesArea" placeholder="Write notes..."></textarea>
+        </div>
+        <div class="todo">
+          <h3>Todo List</h3>
+          <div class="todo-input">
+            <input id="todoInput" placeholder="Add a task" />
+            <button id="addTodo">Add</button>
+          </div>
+          <ul id="todoList" class="list"></ul>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="timer">
+          <h3>Pomodoro</h3>
+          <div id="pomodoroDisplay">25:00</div>
+          <div class="timer-actions">
+            <button id="pomodoroStart">Start</button>
+            <button id="pomodoroPause">Pause</button>
+            <button id="pomodoroReset">Reset</button>
+          </div>
+        </div>
+        <div class="timer">
+          <h3>Stopwatch</h3>
+          <div id="stopwatchDisplay">00:00:00</div>
+          <div class="timer-actions">
+            <button id="stopwatchStart">Start</button>
+            <button id="stopwatchStop">Stop</button>
+            <button id="stopwatchReset">Reset</button>
+          </div>
+        </div>
+        <div class="timer">
+          <h3>Clock</h3>
+          <div id="clockDisplay">--:--</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <span>Offline • Private • Local-first</span>
+    <span class="shortcuts">Shortcuts: <kbd>/</kbd> Search history, <kbd>C</kbd> Focus calculator, <kbd>N</kbd> New event</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
