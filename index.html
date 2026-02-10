@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Privacy Productivity Hub</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+  <meta name="theme-color" content="#0f172a" />
+</head>
+<body class="light">
+  <header class="app-header">
+    <div>
+      <h1>Privacy Productivity Hub</h1>
+      <p>Offline-first calculator + calendar + focus tools. All data stays on your device.</p>
+    </div>
+    <div class="header-actions">
+      <button id="themeToggle" class="ghost">Toggle Theme</button>
+      <button id="exportBtn" class="ghost">Export JSON</button>
+      <label class="ghost file-input">
+        Import JSON
+        <input id="importInput" type="file" accept="application/json" />
+      </label>
+      <button id="resetBtn" class="danger">Reset All</button>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="calculator">Calculator</button>
+    <button class="tab" data-tab="calendar">Calendar</button>
+    <button class="tab" data-tab="notes">Notes</button>
+    <button class="tab" data-tab="todos">Todo</button>
+    <button class="tab" data-tab="timers">Timers</button>
+    <button class="tab" data-tab="settings">Settings</button>
+  </nav>
+
+  <main>
+    <section id="calculator" class="tab-panel active">
+      <div class="grid two">
+        <div class="card">
+          <h2>Calculator</h2>
+          <div class="calculator">
+            <input id="calcDisplay" type="text" placeholder="Enter expression" />
+            <div class="calc-buttons">
+              <button data-key="7">7</button>
+              <button data-key="8">8</button>
+              <button data-key="9">9</button>
+              <button data-key="/">÷</button>
+              <button data-key="4">4</button>
+              <button data-key="5">5</button>
+              <button data-key="6">6</button>
+              <button data-key="*">×</button>
+              <button data-key="1">1</button>
+              <button data-key="2">2</button>
+              <button data-key="3">3</button>
+              <button data-key="-">−</button>
+              <button data-key="0">0</button>
+              <button data-key=".">.</button>
+              <button id="calcEqual">=</button>
+              <button data-key="+">+</button>
+              <button data-key="(">(</button>
+              <button data-key=")">)</button>
+              <button data-fn="sqrt">√</button>
+              <button data-fn="pow">xʸ</button>
+              <button data-fn="sin">sin</button>
+              <button data-fn="cos">cos</button>
+              <button data-fn="tan">tan</button>
+              <button data-fn="log">log</button>
+              <button id="calcClear" class="ghost">C</button>
+            </div>
+            <div class="inline-actions">
+              <button id="saveFormula" class="ghost">Save Formula</button>
+              <select id="formulaSelect">
+                <option value="">Formula Memory</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h2>Quick Calculators</h2>
+          <div class="accordion">
+            <details open>
+              <summary>Percentage</summary>
+              <div class="field-row">
+                <input id="percentValue" type="number" placeholder="Value" />
+                <input id="percentPercent" type="number" placeholder="%" />
+                <button id="percentCalc">Compute</button>
+              </div>
+              <p id="percentResult" class="result"></p>
+            </details>
+            <details>
+              <summary>GST</summary>
+              <div class="field-row">
+                <input id="gstAmount" type="number" placeholder="Amount" />
+                <input id="gstRate" type="number" placeholder="GST %" />
+                <button id="gstCalc">Compute</button>
+              </div>
+              <p id="gstResult" class="result"></p>
+            </details>
+            <details>
+              <summary>EMI / Loan</summary>
+              <div class="field-row">
+                <input id="loanAmount" type="number" placeholder="Principal" />
+                <input id="loanRate" type="number" placeholder="Rate %" />
+                <input id="loanMonths" type="number" placeholder="Months" />
+                <button id="loanCalc">Compute</button>
+              </div>
+              <p id="loanResult" class="result"></p>
+            </details>
+            <details>
+              <summary>Profit / Loss</summary>
+              <div class="field-row">
+                <input id="costPrice" type="number" placeholder="Cost" />
+                <input id="sellPrice" type="number" placeholder="Selling" />
+                <button id="profitCalc">Compute</button>
+              </div>
+              <p id="profitResult" class="result"></p>
+            </details>
+            <details>
+              <summary>Discount</summary>
+              <div class="field-row">
+                <input id="discountPrice" type="number" placeholder="Original" />
+                <input id="discountRate" type="number" placeholder="Discount %" />
+                <button id="discountCalc">Compute</button>
+              </div>
+              <p id="discountResult" class="result"></p>
+            </details>
+            <details>
+              <summary>Unit Conversion</summary>
+              <div class="field-row">
+                <input id="unitValue" type="number" placeholder="Value" />
+                <select id="unitType">
+                  <option value="length">Length</option>
+                  <option value="weight">Weight</option>
+                  <option value="time">Time</option>
+                  <option value="data">Data</option>
+                </select>
+                <select id="unitFrom"></select>
+                <select id="unitTo"></select>
+                <button id="unitCalc">Convert</button>
+              </div>
+              <p id="unitResult" class="result"></p>
+            </details>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid two">
+        <div class="card">
+          <h2>Calculation History</h2>
+          <div class="field-row">
+            <input id="historySearch" type="search" placeholder="Search history" />
+            <button id="clearHistory" class="ghost">Clear</button>
+          </div>
+          <div id="historyList" class="list"></div>
+        </div>
+        <div class="card">
+          <h2>Attach Calculation to Date</h2>
+          <div class="field-row">
+            <input id="attachDate" type="date" />
+            <select id="attachCalc"></select>
+            <button id="attachCalcBtn">Attach</button>
+          </div>
+          <div class="helper">Attached calculations appear in calendar event notes.</div>
+          <div id="monthlySummary" class="summary"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="calendar" class="tab-panel">
+      <div class="card">
+        <div class="calendar-header">
+          <div>
+            <h2>Calendar</h2>
+            <p>Weekends + Indian holidays highlighted. Add events with reminders.</p>
+          </div>
+          <div class="field-row">
+            <select id="calendarView">
+              <option value="month">Month</option>
+              <option value="week">Week</option>
+              <option value="day">Day</option>
+            </select>
+            <button id="prevPeriod" class="ghost">Prev</button>
+            <button id="nextPeriod" class="ghost">Next</button>
+          </div>
+        </div>
+        <div id="calendarGrid" class="calendar-grid"></div>
+      </div>
+      <div class="grid two">
+        <div class="card">
+          <h3>Events for <span id="selectedDateLabel"></span></h3>
+          <div id="eventList" class="list"></div>
+        </div>
+        <div class="card">
+          <h3>Add Event</h3>
+          <div class="form-grid">
+            <input id="eventTitle" type="text" placeholder="Title" />
+            <input id="eventDate" type="date" />
+            <input id="eventTime" type="time" />
+            <input id="eventColor" type="color" value="#3b82f6" />
+            <select id="eventRepeat">
+              <option value="none">No repeat</option>
+              <option value="daily">Daily</option>
+              <option value="weekly">Weekly</option>
+              <option value="monthly">Monthly</option>
+            </select>
+            <textarea id="eventNotes" placeholder="Notes"></textarea>
+            <button id="addEvent">Save Event</button>
+          </div>
+          <button id="notifyToggle" class="ghost">Enable Notifications</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="notes" class="tab-panel">
+      <div class="card">
+        <h2>Notes</h2>
+        <textarea id="notesArea" placeholder="Write private notes..." rows="10"></textarea>
+        <div class="helper">Autosaved locally.</div>
+      </div>
+    </section>
+
+    <section id="todos" class="tab-panel">
+      <div class="card">
+        <h2>Todo List</h2>
+        <div class="field-row">
+          <input id="todoInput" type="text" placeholder="New task" />
+          <button id="addTodo">Add</button>
+        </div>
+        <div id="todoList" class="list"></div>
+      </div>
+    </section>
+
+    <section id="timers" class="tab-panel">
+      <div class="grid two">
+        <div class="card">
+          <h2>Pomodoro</h2>
+          <div class="timer-display" id="pomodoroDisplay">25:00</div>
+          <div class="field-row">
+            <input id="pomodoroMinutes" type="number" min="1" value="25" />
+            <button id="pomodoroStart">Start</button>
+            <button id="pomodoroStop" class="ghost">Stop</button>
+          </div>
+        </div>
+        <div class="card">
+          <h2>Stopwatch</h2>
+          <div class="timer-display" id="stopwatchDisplay">00:00:00</div>
+          <div class="field-row">
+            <button id="stopwatchStart">Start</button>
+            <button id="stopwatchStop" class="ghost">Stop</button>
+            <button id="stopwatchReset" class="ghost">Reset</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Clock</h2>
+        <div class="timer-display" id="clockDisplay"></div>
+      </div>
+    </section>
+
+    <section id="settings" class="tab-panel">
+      <div class="card">
+        <h2>Keyboard Shortcuts</h2>
+        <ul>
+          <li><strong>Alt + 1..6</strong> Switch tabs</li>
+          <li><strong>/</strong> Focus calculation history search</li>
+          <li><strong>Enter</strong> Run calculator expression</li>
+          <li><strong>T</strong> Toggle theme</li>
+        </ul>
+        <h2>Offline Mode</h2>
+        <p>This app is a PWA and keeps your data on-device using LocalStorage. Service worker cached assets allow offline use.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
